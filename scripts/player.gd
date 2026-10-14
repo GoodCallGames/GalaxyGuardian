@@ -15,7 +15,10 @@ signal died
 const laser_sounds := [preload("res://assets/audio/shot 1.wav"), preload("res://assets/audio/shot 2.wav")]
 
 @export var speed := 120.0
+## Fallback bounds, used only if there is no camera to clamp against.
 @export var play_area := Rect2(0.0, 0.0, 320.0, 180.0)
+## Keeps the whole ship on screen: roughly half the sprite size.
+@export var edge_margin := Vector2(20.0, 15.0)
 @export var bank_angle := 0.4
 @export var bank_smoothing := 8.0
 var is_alive: bool = true
@@ -37,8 +40,12 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector3(direction.x, -direction.y, 0.0) * speed
 	move_and_slide()
 
-	global_position.x = clampf(global_position.x, play_area.position.x, play_area.end.x)
-	global_position.y = clampf(global_position.y, play_area.position.y, play_area.end.y)
+	var camera := get_viewport().get_camera_3d()
+	if camera and camera.has_method("clamp_to_screen"):
+		global_position = camera.clamp_to_screen(global_position, edge_margin)
+	else:
+		global_position.x = clampf(global_position.x, play_area.position.x, play_area.end.x)
+		global_position.y = clampf(global_position.y, play_area.position.y, play_area.end.y)
 	global_position.z = 0.0
 
 	# Pitch, roll and yaw the 3D ship model into the movement.

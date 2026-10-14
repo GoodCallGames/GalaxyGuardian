@@ -5,6 +5,7 @@ extends Node3D
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var hud: Control = $UILayer/HUD
 @onready var ui_layer: CanvasLayer = $UILayer
+@onready var enemy_despawn: Area3D = $EnemyDespawn
 @onready var explosion_sound: AudioStreamPlayer = $ExplosionSound
 
 const projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
@@ -12,6 +13,7 @@ const game_over_screen_scene: PackedScene = preload("res://scenes/game_over_scre
 
 @export var game_over_delay: float = 1.5
 @export var lives: int = 3
+@export var despawn_distance := 50.0
 var score: int = 0
 
 func _ready() -> void:
@@ -20,6 +22,13 @@ func _ready() -> void:
 
 	player.shoot_projectile.connect(_on_player_shoot_projectile)
 	player.died.connect(_on_player_died)
+
+func _process(_delta: float) -> void:
+	# Keep the enemy despawn line just past the left edge of the screen.
+	var camera := get_viewport().get_camera_3d()
+	if camera and camera.has_method("get_play_bounds"):
+		var bounds: Rect2 = camera.get_play_bounds()
+		enemy_despawn.global_position.x = bounds.position.x - despawn_distance
 
 func _on_player_shoot_projectile() -> void:
 	var projectile_instance = projectile_scene.instantiate()
