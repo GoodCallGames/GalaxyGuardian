@@ -7,7 +7,7 @@ signal died
 @onready var main_ap: AnimationPlayer = $Main_AP
 @onready var flash_ap: AnimationPlayer = $Flash_AP
 @onready var muzzle: Marker3D = $Muzzle
-@onready var player_ship: Sprite3D = $PlayerShip
+@onready var player_ship: Node3D = $PlayerShip
 @onready var player_ship_collision: CollisionShape3D = $PlayerShipCollision
 @onready var invincibility_timer: Timer = $InvincibilityTimer
 @onready var laser_sound: AudioStreamPlayer = $LaserSound
@@ -17,8 +17,8 @@ const laser_sounds := [preload("res://assets/audio/shot 1.wav"), preload("res://
 @export var speed := 120.0
 ## Fallback bounds, used only if there is no camera to clamp against.
 @export var play_area := Rect2(0.0, 0.0, 320.0, 180.0)
-## Keeps the whole ship on screen: roughly half the sprite size.
-@export var edge_margin := Vector2(20.0, 15.0)
+## Keeps the whole ship on screen: roughly half the model size.
+@export var edge_margin := Vector2(18.0, 12.5)
 @export var bank_angle := 0.4
 @export var bank_smoothing := 8.0
 var is_alive: bool = true
@@ -48,18 +48,11 @@ func _physics_process(delta: float) -> void:
 		global_position.y = clampf(global_position.y, play_area.position.y, play_area.end.y)
 	global_position.z = 0.0
 
-	# Pitch, roll and yaw the 3D ship model into the movement.
+	# Pitch, roll and yaw the ship model into the movement.
 	var weight := 1.0 - exp(-bank_smoothing * delta)
-	player_ship.rotation.z = lerpf(player_ship.rotation.z, -direction.y * bank_angle * 0.75, weight)
-	player_ship.rotation.x = lerpf(player_ship.rotation.x, -direction.y * bank_angle * 1.5, weight)
-	player_ship.rotation.y = lerpf(player_ship.rotation.y, -direction.x * bank_angle, weight)
-
-	if direction.y < 0.0:
-		main_ap.play("up")
-	elif direction.y > 0.0:
-		main_ap.play("down")
-	else:
-		main_ap.play("default")
+	player_ship.rotation.z = lerpf(player_ship.rotation.z, -direction.y * bank_angle * 0.55, weight)
+	player_ship.rotation.x = lerpf(player_ship.rotation.x, direction.y * bank_angle * 1.1, weight)
+	player_ship.rotation.y = lerpf(player_ship.rotation.y, direction.x * bank_angle * 0.3, weight)
 
 func shoot() -> void:
 	shoot_projectile.emit()
@@ -72,6 +65,9 @@ func die() -> void:
 	died.emit()
 	is_alive = false
 	main_ap.play("explode")
+
+func spawn_explosion() -> void:
+	Explosion.spawn(get_parent(), global_position, 1.6)
 
 func respawn(spawn_position: Vector3) -> void:
 	global_position = spawn_position

@@ -6,16 +6,32 @@
 [ext_resource type="PackedScene" uid="uid://g0t7obya0t8g" path="res://scenes/enemy_spawner.tscn" id="4_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://dvte2423du5pa" path="res://assets/audio/space-asteroids.ogg" id="9_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://rytejfebi1gp" path="res://assets/audio/explosion.wav" id="10_vtaks"]
-[ext_resource type="Script" path="res://scripts/space_background.gd" id="11_bg3d"]
+[ext_resource type="Script" path="res://scripts/space_scenery.gd" id="11_scenery"]
 [ext_resource type="Script" path="res://scripts/camera_sway.gd" id="12_sway"]
 [ext_resource type="Script" path="res://scripts/star_field.gd" id="13_stars"]
+[ext_resource type="Script" path="res://scripts/sky_scroll.gd" id="14_sky"]
+[ext_resource type="Texture2D" path="res://assets/textures/sky/nebula.jpg" id="15_nebula"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nebula"]
+panorama = ExtResource("15_nebula")
+
+[sub_resource type="Sky" id="Sky_nebula"]
+sky_material = SubResource("PanoramaSkyMaterial_nebula")
 
 [sub_resource type="Environment" id="Environment_space"]
-background_mode = 1
-background_color = Color(0, 0, 0, 1)
+background_mode = 2
+sky = SubResource("Sky_nebula")
 ambient_light_source = 2
-ambient_light_color = Color(0.55, 0.6, 0.85, 1)
-ambient_light_energy = 0.8
+ambient_light_color = Color(0.5, 0.58, 0.85, 1)
+ambient_light_energy = 0.4
+background_energy_multiplier = 0.8
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.9
+glow_strength = 1.1
+glow_bloom = 0.08
+glow_blend_mode = 1
+glow_hdr_threshold = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_despawn"]
 size = Vector3(25, 219, 60)
@@ -34,22 +50,24 @@ one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_space")
+script = ExtResource("14_sky")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 135, 235)
-fov = 45.0
-far = 2000.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 108, 330)
+fov = 30.0
+far = 3000.0
 script = ExtResource("12_sway")
 
-[node name="SpaceBG" type="Node3D" parent="."]
-script = ExtResource("11_bg3d")
+[node name="Scenery" type="Node3D" parent="."]
+script = ExtResource("11_scenery")
 
 [node name="StarField" type="MultiMeshInstance3D" parent="."]
 script = ExtResource("13_stars")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-35, -30, 0)
-light_energy = 1.1
+rotation_degrees = Vector3(-30, -35, 0)
+light_color = Color(1, 0.96, 0.9, 1)
+light_energy = 1.15
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 90, 0)

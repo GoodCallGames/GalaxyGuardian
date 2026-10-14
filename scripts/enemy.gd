@@ -3,30 +3,36 @@ class_name Enemy
 
 signal died
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var enemy_sprite: Node3D = $EnemySprite
+@onready var model: Node3D = $Model
 
 @export var speed: float = 100.0
-@export var tumble_speed := 2.0
+@export var tumble_speed := 1.6
 
 var _phase := randf() * TAU
 var _age := 0.0
+var _dead := false
+
+func _ready() -> void:
+	# The model sways in _process, so it opts out of physics interpolation.
+	model.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 
 func _process(delta: float) -> void:
-	# Slow wobble while alive so the extruded model shows its thickness.
-	if speed > 0.0:
-		_age += delta
-		enemy_sprite.rotation.y = sin(_age * tumble_speed + _phase) * 0.7
-		enemy_sprite.rotation.x = cos(_age * tumble_speed * 0.7 + _phase) * 0.35
-	else:
-		enemy_sprite.rotation = Vector3.ZERO
+	# Slow wobble so the 3D model catches the light from different angles.
+	_age += delta
+	model.rotation.x = sin(_age * tumble_speed + _phase) * 0.28
+	model.rotation.y = cos(_age * tumble_speed * 0.7 + _phase) * 0.07
+	model.rotation.z = sin(_age * tumble_speed * 0.5 + _phase) * 0.04
 
 func _physics_process(delta: float) -> void:
 	global_position.x -= speed * delta
 
 func die() -> void:
+	if _dead:
+		return
+	_dead = true
 	died.emit()
-	animation_player.play("explode")
+	Explosion.spawn(get_parent(), global_position, 1.0)
+	queue_free()
 
 
 func _on_body_entered(body: Node3D) -> void:

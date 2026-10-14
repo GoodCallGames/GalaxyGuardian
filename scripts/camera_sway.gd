@@ -13,6 +13,8 @@ extends Camera3D
 var _offset := Vector2.ZERO
 
 func _ready() -> void:
+	# Moved every rendered frame (not every physics tick), so skip interpolation.
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	look_at_from_position(base_position, look_target)
 
 func _process(delta: float) -> void:

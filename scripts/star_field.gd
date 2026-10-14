@@ -12,6 +12,7 @@ var _positions := PackedVector3Array()
 var _speeds := PackedFloat32Array()
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	var quad := QuadMesh.new()
 	quad.size = Vector2(1.0, 1.0)
 	var material := StandardMaterial3D.new()
