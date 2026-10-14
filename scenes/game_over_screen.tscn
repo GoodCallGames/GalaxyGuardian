@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://duscqridsie65"]
+
+[ext_resource type="Script" uid="uid://d1b3cgwv2hqu2" path="res://scripts/game_over_screen.gd" id="1_61w2s"]
+[ext_resource type="FontFile" uid="uid://blf8nts5qasgg" path="res://assets/font/Kenney Pixel Square.ttf" id="1_iwahs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0, 0.4117647, 0.6, 0.47058824)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("1_iwahs")
+font_color = Color(1, 0.34901962, 0.34901962, 1)
+
+[node name="GameOverScreen" type="Control" unique_id=2072443120]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_61w2s")
+
+[node name="Panel" type="Panel" parent="." unique_id=296252795]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -48.5
+offset_right = 78.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
+
+[node name="Title" type="Label" parent="Panel" unique_id=1849589587]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -38.0
+offset_right = 53.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_g4v7s")
+
+[node name="Retry" type="Button" parent="Panel" unique_id=254206166]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -7.0
+offset_right = 28.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_iwahs")
+theme_override_font_sizes/font_size = 8
+text = "RETRY"
+
+[node name="Quit" type="Button" parent="Panel" unique_id=1780980382]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = 19.0
+offset_right = 28.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_iwahs")
+theme_override_font_sizes/font_size = 8
+text = "QUIT"
+
+[connection signal="pressed" from="Panel/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]

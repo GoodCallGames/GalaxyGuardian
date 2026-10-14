@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://g0t7obya0t8g"]
+
+[ext_resource type="Script" uid="uid://bp3k8qodhbisj" path="res://scripts/enemy_spawner.gd" id="1_ks1gq"]
+
+[node name="EnemySpawner" type="Node2D" unique_id=1991683906]
+script = ExtResource("1_ks1gq")
+
+[node name="SpawnPositions" type="Node2D" parent="." unique_id=1216182161]
+position = Vector2(360, 0)
+
+[node name="SpawnPosition_1" type="Marker2D" parent="SpawnPositions" unique_id=960929391]
+position = Vector2(0, 15)
+
+[node name="SpawnPosition_2" type="Marker2D" parent="SpawnPositions" unique_id=1558909799]
+position = Vector2(0, 45)
+
+[node name="SpawnPosition_3" type="Marker2D" parent="SpawnPositions" unique_id=722344855]
+position = Vector2(0, 75)
+
+[node name="SpawnPosition_4" type="Marker2D" parent="SpawnPositions" unique_id=1808940804]
+position = Vector2(0, 105)
+
+[node name="SpawnPosition_5" type="Marker2D" parent="SpawnPositions" unique_id=254829316]
+position = Vector2(0, 135)
+
+[node name="SpawnPosition_6" type="Marker2D" parent="SpawnPositions" unique_id=1915472488]
+position = Vector2(0, 165)
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1918622209]
+wait_time = 2.0
+autostart = true
+
+[node name="DifficultyTimer" type="Timer" parent="." unique_id=1569731056]
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]

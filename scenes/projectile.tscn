@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bgy3gkyupo2ag"]
+
+[ext_resource type="Texture2D" uid="uid://b6qjd4jnum1c4" path="res://assets/textures/projectile/laser1.png" id="1_c8fcr"]
+[ext_resource type="Script" uid="uid://cl50cnl0hnb71" path="res://scripts/projectile.gd" id="1_q3m7n"]
+[ext_resource type="Texture2D" uid="uid://cp7xiqfiergpq" path="res://assets/textures/projectile/laser2.png" id="3_softn"]
+[ext_resource type="Texture2D" uid="uid://o5cf4iskgi8r" path="res://assets/textures/projectile/hit1.png" id="4_w7nm8"]
+[ext_resource type="Texture2D" uid="uid://byqnu2kwyvryd" path="res://assets/textures/projectile/hit2.png" id="5_6c2e5"]
+[ext_resource type="Texture2D" uid="uid://c4tchjgbmptxc" path="res://assets/textures/projectile/hit3.png" id="6_pl1gp"]
+[ext_resource type="Texture2D" uid="uid://bpdrxjs26j1m2" path="res://assets/textures/projectile/hit4.png" id="7_ejmht"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c8fcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_softn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_w7nm8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6c2e5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pl1gp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ejmht")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6aapk"]
+radius = 3.0
+height = 18.0
+
+[node name="Projectile" type="Area2D" unique_id=670342003]
+script = ExtResource("1_q3m7n")
+speed = 300.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1588712647]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1221332758]
+position = Vector2(1, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_6aapk")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1158346878]
+rect = Rect2(-12, -3, 4, 6)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

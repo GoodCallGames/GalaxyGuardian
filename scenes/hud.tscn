@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cixo5wlputyod"]
+
+[ext_resource type="FontFile" uid="uid://blf8nts5qasgg" path="res://assets/font/Kenney Pixel Square.ttf" id="1_ahhtf"]
+[ext_resource type="Script" uid="uid://bwhc4wvjdlwug" path="res://scripts/hud.gd" id="1_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://b4v3suh7k4qdt" path="res://assets/textures/player/player1.png" id="3_5ysmq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("1_ahhtf")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_6fi6k"]
+font = ExtResource("1_ahhtf")
+
+[node name="HUD" type="Control" unique_id=671697646]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oo0fn")
+
+[node name="Score" type="Label" parent="." unique_id=1743437483]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 83.0
+offset_bottom = 17.0
+text = "SCORE: 0"
+label_settings = SubResource("LabelSettings_g4v7s")
+vertical_alignment = 1
+
+[node name="Ship" type="TextureRect" parent="." unique_id=1860997082]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 15.0
+offset_right = 21.0
+offset_bottom = 32.0
+texture = ExtResource("3_5ysmq")
+expand_mode = 1
+
+[node name="X" type="Label" parent="." unique_id=580546128]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 17.0
+offset_right = 30.0
+offset_bottom = 44.0
+text = "X
+"
+label_settings = SubResource("LabelSettings_g4v7s")
+vertical_alignment = 1
+
+[node name="LivesLeft" type="Label" parent="." unique_id=1497223503]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 11.0
+offset_right = 78.0
+offset_bottom = 62.0
+text = "3
+"
+label_settings = SubResource("LabelSettings_6fi6k")

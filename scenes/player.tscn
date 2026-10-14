@@ -1,0 +1,291 @@
+[gd_scene format=3 uid="uid://b5tybpwcvycre"]
+
+[ext_resource type="Texture2D" uid="uid://b4v3suh7k4qdt" path="res://assets/textures/player/player1.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bb8lpmp4nwr67" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="AudioStream" uid="uid://b1ot1x3vb3lr6" path="res://assets/audio/shot 1.wav" id="2_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://cap7ekcoi8wo1" path="res://assets/textures/player/player2.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://celft4fc4re0f" path="res://assets/textures/player/player3.png" id="4_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://p71kljpi6dpm" path="res://assets/textures/explosion/explosion1.png" id="4_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://cjcem1dy60evq" path="res://assets/textures/explosion/explosion2.png" id="5_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://cidu426tey7kq" path="res://assets/textures/projectile/flash.png" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://376e4mpmpf2k" path="res://assets/textures/explosion/explosion3.png" id="6_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bxp8sr0rgiy0a" path="res://assets/textures/explosion/explosion4.png" id="7_jej6c"]
+[ext_resource type="Texture2D" uid="uid://cb7wq5kbdmybp" path="res://assets/textures/explosion/explosion5.png" id="8_f1ej7"]
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerShip:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3vyb7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerShipCollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerShip:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3vyb7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("PlayerShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerShip:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_dqkch")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("PlayerShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_oprun"]
+resource_name = "explode"
+length = 0.35
+step = 0.07
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerShip:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428573, 0.2857143),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_y4r1p"), ExtResource("5_d2wvv"), ExtResource("6_3v2ag"), ExtResource("7_jej6c"), ExtResource("8_f1ej7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerShipCollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Main_AP")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.35),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"default", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ur7pv"]
+resource_name = "up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerShip:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_qlg0r")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("PlayerShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
+_data = {
+&"RESET": SubResource("Animation_tuyoq"),
+&"default": SubResource("Animation_fjrip"),
+&"down": SubResource("Animation_smehm"),
+&"explode": SubResource("Animation_oprun"),
+&"up": SubResource("Animation_ur7pv")
+}
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_y4r1p"]
+resource_name = "shoot_laser"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d2wvv"]
+_data = {
+&"RESET": SubResource("Animation_qlg0r"),
+&"shoot_laser": SubResource("Animation_y4r1p")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 5.0
+height = 24.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1351601452]
+motion_mode = 1
+script = ExtResource("1_g2els")
+
+[node name="LaserSound" type="AudioStreamPlayer" parent="." unique_id=430357604]
+stream = ExtResource("2_d2wvv")
+volume_db = -3.649
+
+[node name="Main_AP" type="AnimationPlayer" parent="." unique_id=718785741]
+libraries/ = SubResource("AnimationLibrary_y4r1p")
+autoplay = &"default"
+
+[node name="Flash_AP" type="AnimationPlayer" parent="." unique_id=853877973]
+libraries/ = SubResource("AnimationLibrary_d2wvv")
+
+[node name="PlayerShip" type="Sprite2D" parent="." unique_id=540543098]
+texture = ExtResource("1_3vyb7")
+
+[node name="Flash" type="Sprite2D" parent="." unique_id=489315257]
+visible = false
+position = Vector2(19, 0)
+texture = ExtResource("5_qlg0r")
+
+[node name="PlayerShipCollision" type="CollisionShape2D" parent="." unique_id=312219868]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_g4v7s")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=566138615]
+position = Vector2(22, 0)
+
+[node name="InvincibilityTimer" type="Timer" parent="." unique_id=528699358]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
