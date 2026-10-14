@@ -41,9 +41,11 @@ func _physics_process(delta: float) -> void:
 	global_position.y = clampf(global_position.y, play_area.position.y, play_area.end.y)
 	global_position.z = 0.0
 
-	# Turn the billboard slightly into the movement so the perspective camera shows depth.
-	var target_yaw := -direction.x * bank_angle
-	player_ship.rotation.y = lerpf(player_ship.rotation.y, target_yaw, 1.0 - exp(-bank_smoothing * delta))
+	# Pitch, roll and yaw the 3D ship model into the movement.
+	var weight := 1.0 - exp(-bank_smoothing * delta)
+	player_ship.rotation.z = lerpf(player_ship.rotation.z, -direction.y * bank_angle * 0.75, weight)
+	player_ship.rotation.x = lerpf(player_ship.rotation.x, -direction.y * bank_angle * 1.5, weight)
+	player_ship.rotation.y = lerpf(player_ship.rotation.y, -direction.x * bank_angle, weight)
 
 	if direction.y < 0.0:
 		main_ap.play("up")

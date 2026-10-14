@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bxp8sr0rgiy0a" path="res://assets/textures/explosion/explosion4.png" id="10_j0cyh"]
 [ext_resource type="Texture2D" uid="uid://cb7wq5kbdmybp" path="res://assets/textures/explosion/explosion5.png" id="11_g0wcc"]
 
+[ext_resource type="Script" path="res://scripts/voxel_sprite.gd" id="vox_sprite"]
+
 [sub_resource type="Animation" id="Animation_8qclf"]
 length = 0.001
 tracks/0/type = "value"
@@ -138,6 +140,8 @@ radius = 12.0
 script = ExtResource("1_md0e3")
 
 [node name="EnemySprite" type="Sprite3D" parent="."]
+script = ExtResource("vox_sprite")
+depth = 10.0
 pixel_size = 1.0
 alpha_cut = 1
 texture_filter = 0

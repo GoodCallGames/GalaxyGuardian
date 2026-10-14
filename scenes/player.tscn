@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bxp8sr0rgiy0a" path="res://assets/textures/explosion/explosion4.png" id="7_jej6c"]
 [ext_resource type="Texture2D" uid="uid://cb7wq5kbdmybp" path="res://assets/textures/explosion/explosion5.png" id="8_f1ej7"]
 
+[ext_resource type="Script" path="res://scripts/voxel_sprite.gd" id="vox_sprite"]
+
 [sub_resource type="Animation" id="Animation_tuyoq"]
 length = 0.001
 tracks/0/type = "value"
@@ -270,12 +272,16 @@ autoplay = &"default"
 libraries/ = SubResource("AnimationLibrary_d2wvv")
 
 [node name="PlayerShip" type="Sprite3D" parent="."]
+script = ExtResource("vox_sprite")
+depth = 8.0
 pixel_size = 1.0
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("1_3vyb7")
 
 [node name="Flash" type="Sprite3D" parent="."]
+script = ExtResource("vox_sprite")
+depth = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0.5)
 visible = false
 pixel_size = 1.0

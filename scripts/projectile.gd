@@ -5,8 +5,12 @@ extends Area3D
 @export var speed := 500.0
 @export var max_x := 400.0
 
+@export var spin_speed := 14.0
+
 func _physics_process(delta: float) -> void:
 	global_position.x += speed * delta
+	if speed > 0.0:
+		animated_sprite_3d.rotation.x += spin_speed * delta
 	if global_position.x > max_x:
 		queue_free()
 

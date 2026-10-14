@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c4tchjgbmptxc" path="res://assets/textures/projectile/hit3.png" id="6_pl1gp"]
 [ext_resource type="Texture2D" uid="uid://bpdrxjs26j1m2" path="res://assets/textures/projectile/hit4.png" id="7_ejmht"]
 
+[ext_resource type="Script" path="res://scripts/voxel_animated_sprite.gd" id="vox_anim"]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
 "frames": [{
@@ -48,6 +50,8 @@ script = ExtResource("1_q3m7n")
 speed = 300.0
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+script = ExtResource("vox_anim")
+depth = 4.0
 pixel_size = 1.0
 alpha_cut = 1
 texture_filter = 0
