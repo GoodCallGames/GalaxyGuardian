@@ -3,90 +3,68 @@
 [ext_resource type="Script" uid="uid://cdsk0q0t1diif" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b5tybpwcvycre" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://cixo5wlputyod" path="res://scenes/hud.tscn" id="2_iywne"]
-[ext_resource type="Texture2D" uid="uid://nhk2t4bkgpc7" path="res://assets/textures/background/bg-back.png" id="3_p57ef"]
-[ext_resource type="Texture2D" uid="uid://dfjgh3air7lt3" path="res://assets/textures/background/bg-stars.png" id="4_gee14"]
-[ext_resource type="PackedScene" uid="uid://cb6j62dyclmx1" path="res://scenes/enemy.tscn" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://g0t7obya0t8g" path="res://scenes/enemy_spawner.tscn" id="4_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://b4jrn371yo3a3" path="res://assets/textures/background/bg-planet-double.png" id="5_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://dvte2423du5pa" path="res://assets/audio/space-asteroids.ogg" id="9_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://rytejfebi1gp" path="res://assets/audio/explosion.wav" id="10_vtaks"]
+[ext_resource type="Script" path="res://scripts/space_background.gd" id="11_bg3d"]
+[ext_resource type="Script" path="res://scripts/camera_sway.gd" id="12_sway"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(25, 219)
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 1
+background_color = Color(0, 0, 0, 1)
 
-[node name="Game" type="Node2D" unique_id=888081041]
+[sub_resource type="BoxShape3D" id="BoxShape3D_despawn"]
+size = Vector3(25, 219, 60)
+
+[node name="Game" type="Node3D"]
 script = ExtResource("1_lnu2h")
 
-[node name="UILayer" type="CanvasLayer" parent="." unique_id=898283583]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="UILayer" unique_id=671697646 instance=ExtResource("2_iywne")]
+[node name="HUD" parent="UILayer" instance=ExtResource("2_iywne")]
 metadata/_edit_lock_ = true
 
-[node name="RespawnTimer" type="Timer" parent="." unique_id=1026651229]
+[node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
-[node name="ParallaxBG" type="Node2D" parent="." unique_id=513547522]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
 
-[node name="ParallaxSpaceBG" type="Parallax2D" parent="ParallaxBG" unique_id=1337579286]
-repeat_size = Vector2(326.4, 192)
-autoscroll = Vector2(-1, 0)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160, 90, 247.3)
+fov = 40.0
+far = 2000.0
+script = ExtResource("12_sway")
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxSpaceBG" unique_id=463615507]
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_p57ef")
-centered = false
+[node name="SpaceBG" type="Node3D" parent="."]
+script = ExtResource("11_bg3d")
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 90, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 89, 0)
 metadata/_edit_lock_ = true
 
-[node name="ParallaxStars" type="Parallax2D" parent="ParallaxBG" unique_id=996648405]
-repeat_size = Vector2(326.4, 192)
-autoscroll = Vector2(-4, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxStars" unique_id=391848239]
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_gee14")
-centered = false
+[node name="EnemySpawner" parent="." instance=ExtResource("4_lbhrr")]
 metadata/_edit_lock_ = true
 
-[node name="ParallaxPlanets" type="Parallax2D" parent="ParallaxBG" unique_id=1827792326]
-repeat_size = Vector2(908.8, 192)
-autoscroll = Vector2(-50, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxPlanets" unique_id=622720469]
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("5_0tnpc")
-centered = false
+[node name="EnemyDespawn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 86.5, 0)
 metadata/_edit_lock_ = true
 
-[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=512505829]
-position = Vector2(20, 90)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDespawn"]
+shape = SubResource("BoxShape3D_despawn")
 
-[node name="Player" parent="." unique_id=1351601452 instance=ExtResource("1_uwrxv")]
-position = Vector2(22, 91)
-metadata/_edit_lock_ = true
-
-[node name="EnemySpawner" parent="." unique_id=1991683906 instance=ExtResource("4_lbhrr")]
-metadata/_edit_lock_ = true
-
-[node name="EnemyDespawn" type="Area2D" parent="." unique_id=1500712047]
-position = Vector2(-31, 3)
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDespawn" unique_id=885921031]
-position = Vector2(2.5, 90.5)
-shape = SubResource("RectangleShape2D_g4v7s")
-
-[node name="Enemy" parent="." unique_id=269514745 instance=ExtResource("4_iywne")]
-visible = false
-
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=50327190]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_0tnpc")
 autoplay = true
 parameters/looping = true
 
-[node name="ExplosionSound" type="AudioStreamPlayer" parent="." unique_id=437274557]
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_vtaks")
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]
-[connection signal="area_entered" from="EnemyDespawn" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="EnemyDespawn" to="." method="_on_enemy_despawn_area_entered"]

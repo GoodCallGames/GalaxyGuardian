@@ -39,26 +39,24 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6aapk"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6aapk"]
 radius = 3.0
 height = 18.0
 
-[node name="Projectile" type="Area2D" unique_id=670342003]
+[node name="Projectile" type="Area3D"]
 script = ExtResource("1_q3m7n")
 speed = 300.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1588712647]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+pixel_size = 1.0
+alpha_cut = 1
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1221332758]
-position = Vector2(1, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_6aapk")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1158346878]
-rect = Rect2(-12, -3, 4, 6)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("CapsuleShape3D_6aapk")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

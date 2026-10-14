@@ -1,4 +1,4 @@
-extends Area2D
+extends Area3D
 class_name Enemy
 
 signal died
@@ -15,7 +15,7 @@ func die() -> void:
 	animation_player.play("explode")
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
 		die()
 		body.die()

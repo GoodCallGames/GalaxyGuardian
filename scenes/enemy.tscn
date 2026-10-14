@@ -41,7 +41,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionPolygon2D:disabled")
+tracks/2/path = NodePath("CollisionShape3D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -100,7 +100,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionPolygon2D:disabled")
+tracks/2/path = NodePath("CollisionShape3D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -131,16 +131,22 @@ _data = {
 &"explode": SubResource("Animation_s1ycm")
 }
 
-[node name="Enemy" type="Area2D" unique_id=269514745]
+[sub_resource type="SphereShape3D" id="SphereShape3D_enemy"]
+radius = 12.0
+
+[node name="Enemy" type="Area3D"]
 script = ExtResource("1_md0e3")
 
-[node name="EnemySprite" type="Sprite2D" parent="." unique_id=1021804343]
+[node name="EnemySprite" type="Sprite3D" parent="."]
+pixel_size = 1.0
+alpha_cut = 1
+texture_filter = 0
 texture = ExtResource("1_7p1mj")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=34171356]
-polygon = PackedVector2Array(-1, -14, 5, -14, 10, -12, 12, 0, 10, 11, 6, 14, 0, 14, -5, 12, -8, 9, -12, 2, -12, -3, -8, -9, -5, -12)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_enemy")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1232736943]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("AnimationLibrary_otmr2")
 autoplay = &"default"
 

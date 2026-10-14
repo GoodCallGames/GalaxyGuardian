@@ -250,41 +250,47 @@ _data = {
 &"shoot_laser": SubResource("Animation_y4r1p")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 5.0
 height = 24.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1351601452]
+[node name="Player" type="CharacterBody3D"]
 motion_mode = 1
 script = ExtResource("1_g2els")
 
-[node name="LaserSound" type="AudioStreamPlayer" parent="." unique_id=430357604]
+[node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_d2wvv")
 volume_db = -3.649
 
-[node name="Main_AP" type="AnimationPlayer" parent="." unique_id=718785741]
+[node name="Main_AP" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("AnimationLibrary_y4r1p")
 autoplay = &"default"
 
-[node name="Flash_AP" type="AnimationPlayer" parent="." unique_id=853877973]
+[node name="Flash_AP" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("AnimationLibrary_d2wvv")
 
-[node name="PlayerShip" type="Sprite2D" parent="." unique_id=540543098]
+[node name="PlayerShip" type="Sprite3D" parent="."]
+pixel_size = 1.0
+alpha_cut = 1
+texture_filter = 0
 texture = ExtResource("1_3vyb7")
 
-[node name="Flash" type="Sprite2D" parent="." unique_id=489315257]
+[node name="Flash" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0.5)
 visible = false
-position = Vector2(19, 0)
+pixel_size = 1.0
+alpha_cut = 1
+texture_filter = 0
 texture = ExtResource("5_qlg0r")
 
-[node name="PlayerShipCollision" type="CollisionShape2D" parent="." unique_id=312219868]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_g4v7s")
+[node name="PlayerShipCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_player")
 
-[node name="Muzzle" type="Marker2D" parent="." unique_id=566138615]
-position = Vector2(22, 0)
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 0)
 
-[node name="InvincibilityTimer" type="Timer" parent="." unique_id=528699358]
+[node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 

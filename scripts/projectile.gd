@@ -1,25 +1,24 @@
-extends Area2D
+extends Area3D
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @export var speed := 500.0
+@export var max_x := 400.0
 
 func _physics_process(delta: float) -> void:
 	global_position.x += speed * delta
+	if global_position.x > max_x:
+		queue_free()
 
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	queue_free()
-
-
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(area: Area3D) -> void:
 	if area is Enemy:
 		area.die()
 		speed = 0.0
-		collision_shape_2d.set_deferred("disabled", true)
-		animated_sprite_2d.play("hit")
+		collision_shape_3d.set_deferred("disabled", true)
+		animated_sprite_3d.play("hit")
 
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite_2d.animation == "hit":
+func _on_animated_sprite_3d_animation_finished() -> void:
+	if animated_sprite_3d.animation == "hit":
 		queue_free()
